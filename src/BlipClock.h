@@ -24,7 +24,13 @@ public:
   // Transport control
   void start();
   void stop();
-  bool isRunning() { return uClock.isRunning(); }
+  bool isRunning() { 
+    #ifdef UCLOCK_LEGACY_API
+      return uClock.isRunning();
+    #else
+      return uClock.state == uClock.RUNNING;
+    #endif
+  }
   
   // Callback registration
   void on16PPQN(ClockCallback callback) { uClock.setOnPPQN(callback); }
